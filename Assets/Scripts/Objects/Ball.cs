@@ -25,6 +25,7 @@ public class Ball : ManagedUpdateBehaviour, IPhysicsObject
 
     public void Launch(Vector2 direction)
     {
+        position = transform.position;
         velocity = direction.normalized * speed;
         launched = true;
     }
