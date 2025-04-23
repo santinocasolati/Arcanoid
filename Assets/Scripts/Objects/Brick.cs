@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
     [SerializeField] private Vector2 size = new Vector2(1f, 0.5f);
+
+    public Action OnDestroy;
 
     private void Awake()
     {
@@ -15,9 +18,12 @@ public class Brick : MonoBehaviour
         return new Rect(pos - size * 0.5f, size);
     }
 
-    public void OnHit()
+    public virtual void OnHit()
     {
         PhysicsManager.Instance.UnregisterBrick(this);
+
+        OnDestroy?.Invoke();
+
         Destroy(gameObject);
     }
 

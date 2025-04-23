@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : ManagedUpdateBehaviour
+public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
 {
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float moveSpeed, minX, maxX;
@@ -10,25 +10,24 @@ public class PlayerController : ManagedUpdateBehaviour
 
     private InputSystem_Actions inputs;
 
-    private void Awake()
+    protected override void Awake()
     {
         inputs = new InputSystem_Actions();
         inputs.Player.Enable();
         inputs.Player.Start.performed += _ => LaunchAttachedBall();
 
-        UpdateManager.Instance.RegisterComponent(this);
+        base.Awake();
 
-        SpawnInitialBall();
+        SpawnBall();
     }
 
-    private void SpawnInitialBall()
+    public void SpawnBall()
     {
-        GameObject ballObj = Instantiate(ballPrefab);
-        attachedBall = ballObj.GetComponent<Ball>();
-        ballObj.transform.position = transform.position + Vector3.up * (size.y * 0.5f + attachedBall.Radius);
+        GameObject ball = Instantiate(ballPrefab, transform.position + new Vector3(0, size.y * 2, 0), Quaternion.identity);
+        attachedBall = ball.GetComponent<Ball>();
     }
 
-    private void LaunchAttachedBall()
+    public void LaunchAttachedBall()
     {
         if (attachedBall == null) return;
 
@@ -52,7 +51,7 @@ public class PlayerController : ManagedUpdateBehaviour
 
             if (attachedBall != null)
             {
-                attachedBall.transform.position = transform.position + Vector3.up * (size.y * 0.5f + attachedBall.Radius);
+                attachedBall.transform.position = transform.position + new Vector3(0, size.y * 2, 0);
             }
         }
     }

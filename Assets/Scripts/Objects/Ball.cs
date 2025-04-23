@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ball : ManagedUpdateBehaviour
+public class Ball : ManagedUpdateBehaviour, IPhysicsObject
 {
     [SerializeField] private float radius = 0.25f;
     [SerializeField] private float speed = 5f;
@@ -11,22 +11,28 @@ public class Ball : ManagedUpdateBehaviour
     private Vector2 velocity;
     private Vector2 position;
 
-    private void Awake()
+    private bool launched = false;
+
+    protected override void Awake()
     {
         position = transform.position;
         velocity = Vector2.zero;
 
-        UpdateManager.Instance.RegisterComponent(this);
         PhysicsManager.Instance.RegisterBall(this);
+
+        base.Awake();
     }
 
     public void Launch(Vector2 direction)
     {
         velocity = direction.normalized * speed;
+        launched = true;
     }
 
     public override void CustomUpdate(float deltaTime)
     {
+        if (!launched) return;
+
         position += velocity * deltaTime;
         transform.position = position;
     }
@@ -54,9 +60,8 @@ public class Ball : ManagedUpdateBehaviour
 
     public void OnMissed()
     {
-        UpdateManager.Instance.UnregisterComponent(this);
         PhysicsManager.Instance.UnregisterBall(this);
-        Destroy(gameObject);
+        DestroyObject();
     }
 
     private void OnDrawGizmosSelected()

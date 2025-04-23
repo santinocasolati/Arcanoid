@@ -11,8 +11,9 @@ public class PhysicsManager : ManagedUpdateBehaviour
 
     private List<Ball> balls = new();
     private List<Brick> bricks = new();
+    private List<IPowerUp> powerups = new();
 
-    private void Awake()
+    protected override void Awake()
     {
         if (Instance == null)
         {
@@ -21,7 +22,7 @@ public class PhysicsManager : ManagedUpdateBehaviour
 
             DontDestroyOnLoad(gameObject);
 
-            UpdateManager.Instance.RegisterComponent(this);
+            base.Awake();
         }
         else
         {
@@ -35,6 +36,9 @@ public class PhysicsManager : ManagedUpdateBehaviour
     public void RegisterBrick(Brick brick) => bricks.Add(brick);
     public void UnregisterBrick(Brick brick) => bricks.Remove(brick);
 
+    public void RegisterPowerup(IPowerUp powerup) => powerups.Add(powerup);
+    public void UnregisterPowerup(IPowerUp powerup) => powerups.Remove(powerup);
+
     public override void CustomUpdate(float deltaTime)
     {
         for (int i = 0; i < balls.Count; i++)
@@ -43,6 +47,12 @@ public class PhysicsManager : ManagedUpdateBehaviour
             CheckWallCollision(ball);
             CheckPlayerCollision(ball);
             CheckBrickCollisions(ball);
+        }
+
+        for (int i = 0; i < powerups.Count; i++)
+        {
+            IPowerUp powerup = powerups[i];
+            CheckPowerupCollisions(powerup);
         }
     }
 
@@ -79,7 +89,7 @@ public class PhysicsManager : ManagedUpdateBehaviour
 
     private void CheckBrickCollisions(Ball ball)
     {
-        foreach (var brick in bricks.ToArray())
+        foreach (Brick brick in bricks.ToArray())
         {
             if (AABB(ball.GetBounds(), brick.GetBounds()))
             {
@@ -87,6 +97,14 @@ public class PhysicsManager : ManagedUpdateBehaviour
                 brick.OnHit();
                 break;
             }
+        }
+    }
+
+    private void CheckPowerupCollisions(IPowerUp powerup)
+    {
+        if (AABB(powerup.GetBounds(), player.GetBounds()))
+        {
+            powerup.OnGrab(player);
         }
     }
 
