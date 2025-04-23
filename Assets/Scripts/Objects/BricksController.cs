@@ -25,6 +25,6 @@ public class BricksController : MonoBehaviour
     {
         if (currentBricks.Count > 0) return;
 
-        //TODO: Win
+        UIManager.Instance.Win();
     }
 }

@@ -15,23 +15,22 @@ public class PhysicsManager : ManagedUpdateBehaviour
 
     protected override void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
         {
-            Instance = this;
-            transform.parent = null;
-
-            DontDestroyOnLoad(gameObject);
-
-            base.Awake();
+            Destroy(Instance);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        Instance = this;
+
+        base.Awake();
     }
 
     public void RegisterBall(Ball ball) => balls.Add(ball);
-    public void UnregisterBall(Ball ball) => balls.Remove(ball);
+    public void UnregisterBall(Ball ball)
+    {
+        balls.Remove(ball);
+        CheckLose();
+    }
 
     public void RegisterBrick(Brick brick) => bricks.Add(brick);
     public void UnregisterBrick(Brick brick) => bricks.Remove(brick);
@@ -112,6 +111,13 @@ public class PhysicsManager : ManagedUpdateBehaviour
     {
         return a.xMin < b.xMax && a.xMax > b.xMin &&
                a.yMin < b.yMax && a.yMax > b.yMin;
+    }
+
+    private void CheckLose()
+    {
+        if (balls.Count > 0) return;
+
+        UIManager.Instance.Lose();
     }
 
     private void OnDrawGizmosSelected()

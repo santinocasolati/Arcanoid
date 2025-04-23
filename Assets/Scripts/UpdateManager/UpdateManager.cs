@@ -10,16 +10,12 @@ public class UpdateManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null)
         {
-            Instance = this;
-            transform.parent = null;
-            DontDestroyOnLoad(gameObject);
+            Destroy(Instance);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        Instance = this;
     }
 
     public void RegisterComponent(ManagedUpdateBehaviour component)
