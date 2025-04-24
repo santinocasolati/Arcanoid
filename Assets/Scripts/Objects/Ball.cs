@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ball : ManagedUpdateBehaviour, IPhysicsObject
+public class Ball : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
 {
     [SerializeField] private float radius = 0.25f;
     [SerializeField] private float speed = 5f;
@@ -13,14 +13,13 @@ public class Ball : ManagedUpdateBehaviour, IPhysicsObject
 
     private bool launched = false;
 
-    protected override void Awake()
+    public override void OnCustomStart()
     {
+        base.OnCustomStart();
         position = transform.position;
         velocity = Vector2.zero;
 
         PhysicsManager.Instance.RegisterBall(this);
-
-        base.Awake();
     }
 
     public void Launch(Vector2 direction)
@@ -30,7 +29,7 @@ public class Ball : ManagedUpdateBehaviour, IPhysicsObject
         launched = true;
     }
 
-    public override void CustomUpdate(float deltaTime)
+    public void OnFixedUpdate(float deltaTime)
     {
         if (!launched) return;
 
@@ -62,7 +61,7 @@ public class Ball : ManagedUpdateBehaviour, IPhysicsObject
     public void OnMissed()
     {
         PhysicsManager.Instance.UnregisterBall(this);
-        DestroyObject();
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
@@ -70,4 +69,6 @@ public class Ball : ManagedUpdateBehaviour, IPhysicsObject
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, Vector3.one * (radius * 2f));
     }
+
+    
 }

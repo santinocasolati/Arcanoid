@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicsManager : ManagedUpdateBehaviour
+public class PhysicsManager : UpdatableComponent,ICustomUpdatable
 {
     public static PhysicsManager Instance;
 
@@ -13,16 +13,14 @@ public class PhysicsManager : ManagedUpdateBehaviour
     private List<Brick> bricks = new();
     private List<IPowerUp> powerups = new();
 
-    protected override void Awake()
+    public override void OnCustomStart()
     {
         if (Instance != null)
-        {
-            Destroy(Instance);
-        }
+            UpdateManager.Unregister(Instance);
 
         Instance = this;
 
-        base.Awake();
+        //base.OnCustomStart();
     }
 
     public void RegisterBall(Ball ball) => balls.Add(ball);
@@ -38,7 +36,7 @@ public class PhysicsManager : ManagedUpdateBehaviour
     public void RegisterPowerup(IPowerUp powerup) => powerups.Add(powerup);
     public void UnregisterPowerup(IPowerUp powerup) => powerups.Remove(powerup);
 
-    public override void CustomUpdate(float deltaTime)
+    public override void OnCustomUpdate()
     {
         for (int i = 0; i < balls.Count; i++)
         {
@@ -131,4 +129,5 @@ public class PhysicsManager : ManagedUpdateBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector3(leftWall.position.x, minY, 0), new Vector3(rightWall.position.x, minY, 0));
     }
+
 }

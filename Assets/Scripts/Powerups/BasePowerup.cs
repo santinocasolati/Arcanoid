@@ -1,22 +1,21 @@
 using UnityEngine;
 
-public class BasePowerup : ManagedUpdateBehaviour, IPowerUp
+public class BasePowerup : UpdatableComponent, IPowerUp, ICustomPhysicsUpdatable
 {
     [SerializeField] private Vector2 size = new Vector2(1f, 1f);
     [SerializeField] private float fallSpeed;
 
     private Vector2 position;
 
-    protected override void Awake()
+    public override void OnCustomStart()
     {
+        base.OnCustomStart();
         position = transform.position;
 
         PhysicsManager.Instance.RegisterPowerup(this);
-
-        base.Awake();
     }
 
-    public override void CustomUpdate(float deltaTime)
+    public void OnFixedUpdate(float deltaTime)
     {
         position.y -= fallSpeed * deltaTime;
         transform.position = position;
@@ -25,7 +24,7 @@ public class BasePowerup : ManagedUpdateBehaviour, IPowerUp
     public virtual void OnGrab(PlayerController player)
     {
         PhysicsManager.Instance.UnregisterPowerup(this);
-        DestroyObject();
+        Destroy(gameObject);
     }
 
     public Rect GetBounds()

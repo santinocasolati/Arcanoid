@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+public class Brick : UpdatableComponent
 {
     [SerializeField] private Vector2 size = new Vector2(1f, 0.5f);
 
-    public Action OnDestroy;
+    public Action OnBrickDestroy;
 
-    private void Awake()
+    public override void OnCustomStart()
     {
+        base.OnCustomStart();
         PhysicsManager.Instance.RegisterBrick(this);
     }
 
@@ -22,7 +23,7 @@ public class Brick : MonoBehaviour
     {
         PhysicsManager.Instance.UnregisterBrick(this);
 
-        OnDestroy?.Invoke();
+        OnBrickDestroy?.Invoke();
 
         Destroy(gameObject);
     }

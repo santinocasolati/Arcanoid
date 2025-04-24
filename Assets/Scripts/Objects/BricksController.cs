@@ -13,7 +13,7 @@ public class BricksController : MonoBehaviour
 
         foreach (Brick brick in bricks)
         {
-            brick.OnDestroy += () =>
+            brick.OnBrickDestroy += () =>
             {
                 currentBricks.Remove(brick);
                 CheckWin();

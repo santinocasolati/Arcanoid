@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
+public class PlayerController : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
 {
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float moveSpeed, minX, maxX;
@@ -10,13 +10,13 @@ public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
 
     private InputSystem_Actions inputs;
 
-    protected override void Awake()
+    public override void OnCustomStart()
     {
+        base.OnCustomStart();
+
         inputs = new InputSystem_Actions();
         inputs.Player.Enable();
         inputs.Player.Start.performed += _ => LaunchAttachedBall();
-
-        base.Awake();
 
         SpawnBall();
     }
@@ -36,7 +36,7 @@ public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
         attachedBall = null;
     }
 
-    public override void CustomUpdate(float deltaTime)
+    public void OnFixedUpdate(float deltaTime)
     {
         float moveDirection = inputs.Player.Move.ReadValue<float>();
 
@@ -67,4 +67,6 @@ public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, new Vector3(size.x, size.y, 0f));
     }
+
+   
 }

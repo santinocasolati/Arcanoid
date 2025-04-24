@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : UpdatableComponent
 {
     public static UIManager Instance;
 
@@ -10,14 +10,15 @@ public class UIManager : MonoBehaviour
 
     private bool ended = false;
 
-    private void Awake()
+    public override void OnCustomStart()
     {
         if (Instance != null)
-        {
             Destroy(Instance);
-        }
 
         Instance = this;
+
+        winScreen.gameObject.SetActive(false);
+        loseScreen.gameObject.SetActive(false);
     }
 
     public void Lose()
