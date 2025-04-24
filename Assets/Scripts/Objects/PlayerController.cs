@@ -7,6 +7,7 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
     public Vector2 size = new Vector2(2f, 0.5f);
 
     private Ball attachedBall;
+    private GenericPool<GameObject> ballPool;
 
     private InputSystem_Actions inputs;
 
@@ -18,13 +19,24 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
         inputs.Player.Enable();
         inputs.Player.Start.performed += _ => LaunchAttachedBall();
 
+        ballPool = new GenericPool<GameObject>(parameters => Instantiate(ballPrefab));
+
         SpawnBall();
     }
 
     public void SpawnBall()
     {
-        GameObject ball = Instantiate(ballPrefab, transform.position + new Vector3(0, size.y * 1.5f, 0), Quaternion.identity);
+        GameObject ball = ballPool.GetObject();
+        ball.SetActive(true);
+        ball.transform.position = transform.position + new Vector3(0, size.y * 1.5f, 0);
+
         attachedBall = ball.GetComponent<Ball>();
+
+        attachedBall.OnBallMissed += () =>
+        {
+            ballPool.ReleaseObject(ball);
+            ball.SetActive(false);
+        };
     }
 
     public void LaunchAttachedBall()

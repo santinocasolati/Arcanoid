@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Ball : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
@@ -13,17 +14,18 @@ public class Ball : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
 
     private bool launched = false;
 
+    public Action OnBallMissed;
+
     public override void OnCustomStart()
     {
         base.OnCustomStart();
         position = transform.position;
         velocity = Vector2.zero;
-
-        PhysicsManager.Instance.RegisterBall(this);
     }
 
     public void Launch(Vector2 direction)
     {
+        PhysicsManager.Instance.RegisterBall(this);
         position = transform.position;
         velocity = direction.normalized * speed;
         launched = true;
@@ -61,7 +63,7 @@ public class Ball : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
     public void OnMissed()
     {
         PhysicsManager.Instance.UnregisterBall(this);
-        Destroy(gameObject);
+        OnBallMissed?.Invoke();
     }
 
     private void OnDrawGizmosSelected()
