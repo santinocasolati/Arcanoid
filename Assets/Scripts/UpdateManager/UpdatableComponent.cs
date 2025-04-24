@@ -6,7 +6,5 @@ public class UpdatableComponent : MonoBehaviour, ICustomUpdatable
 
     public virtual void OnCustomStart() { Debug.Log($"Registering: {this.name}");   }
 
-    public virtual void OnCustomUpdate()
-    {
-    }
+    public virtual void OnCustomUpdate(float deltaTime) { }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : UpdatableComponent, IPhysicsObject, ICustomPhysicsUpdatable
+public class PlayerController : UpdatableComponent, IPhysicsObject
 {
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float moveSpeed, minX, maxX;
@@ -36,7 +36,7 @@ public class PlayerController : UpdatableComponent, IPhysicsObject, ICustomPhysi
         attachedBall = null;
     }
 
-    public void OnFixedUpdate(float deltaTime)
+    public override void OnCustomUpdate(float deltaTime)
     {
         float moveDirection = inputs.Player.Move.ReadValue<float>();
 
@@ -67,6 +67,4 @@ public class PlayerController : UpdatableComponent, IPhysicsObject, ICustomPhysi
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, new Vector3(size.x, size.y, 0f));
     }
-
-   
 }

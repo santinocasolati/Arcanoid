@@ -74,7 +74,7 @@ public static class UpdateManager
 
             try
             {
-                sys.OnCustomUpdate();
+                sys.OnCustomUpdate(Time.deltaTime);
             }
             catch (MissingReferenceException)
             {

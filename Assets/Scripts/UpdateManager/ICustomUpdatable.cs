@@ -1,6 +1,6 @@
 ﻿public interface ICustomUpdatable
 {
-    void OnCustomUpdate();
+    void OnCustomUpdate(float deltaTime);
 
     void OnCustomStart();
 
