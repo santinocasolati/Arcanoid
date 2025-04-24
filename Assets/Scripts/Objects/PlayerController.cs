@@ -23,7 +23,7 @@ public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
 
     public void SpawnBall()
     {
-        GameObject ball = Instantiate(ballPrefab, transform.position + new Vector3(0, size.y * 2, 0), Quaternion.identity);
+        GameObject ball = Instantiate(ballPrefab, transform.position + new Vector3(0, size.y * 1.5f, 0), Quaternion.identity);
         attachedBall = ball.GetComponent<Ball>();
     }
 
@@ -51,7 +51,7 @@ public class PlayerController : ManagedUpdateBehaviour, IPhysicsObject
 
             if (attachedBall != null)
             {
-                attachedBall.transform.position = transform.position + new Vector3(0, size.y * 2, 0);
+                attachedBall.transform.position = transform.position + new Vector3(0, size.y * 1.5f, 0);
             }
         }
     }

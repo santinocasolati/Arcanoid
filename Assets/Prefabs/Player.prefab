@@ -103,4 +103,4 @@ MonoBehaviour:
   moveSpeed: 8
   minX: -7
   maxX: 7
-  size: {x: 2, y: 0.3}
+  size: {x: 2.02, y: 0.42}
