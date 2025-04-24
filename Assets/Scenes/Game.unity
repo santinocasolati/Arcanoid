@@ -1215,6 +1215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3684167677031022445, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -1266,6 +1270,10 @@ PrefabInstance:
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572434094583471391, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7501886376225975262, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4798,6 +4806,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 3684167677031022445, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -4849,6 +4861,10 @@ PrefabInstance:
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572434094583471391, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7501886376225975262, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4949,6 +4965,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3684167677031022445, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -4988,6 +5008,10 @@ PrefabInstance:
     - target: {fileID: 4642326354552673705, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572434094583471391, guid: a0cef7f7da3d6024a9d94adbff52db3f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
