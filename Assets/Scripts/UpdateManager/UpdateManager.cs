@@ -109,7 +109,7 @@ public static class UpdateManager
 
             try
             {
-                sys.OnFixedUpdate(Time.deltaTime);
+                sys.OnFixedUpdate(Time.fixedDeltaTime);
             }
             catch (MissingReferenceException)
             {

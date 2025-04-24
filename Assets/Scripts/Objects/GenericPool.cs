@@ -22,13 +22,9 @@ public class GenericPool<T>
         T item = default;
 
         if (Length > 0)
-        {
             item = _objects.Dequeue();
-        }
         else
-        {
             item = _objectGenerator(parameters);
-        }
 
         return item;
     }
@@ -41,8 +37,6 @@ public class GenericPool<T>
     public void ClearPool()
     {
         while (Length > 0)
-        {
             _objects.Dequeue();
-        }
     }
 }
