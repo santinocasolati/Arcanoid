@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
     private List<Ball> balls = new();
     private List<Brick> bricks = new();
     private List<IPowerUp> powerups = new();
+
+    public Action OnPlayerBounce;
 
     public override void OnCustomStart()
     {
@@ -76,6 +79,8 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
             float relativeHit = (ball.Position.x - player.transform.position.x) / player.size.x;
             Vector2 newDir = new Vector2(relativeHit, 1).normalized;
             ball.SetDirection(newDir);
+
+            OnPlayerBounce?.Invoke();
         }
     }
 
@@ -87,6 +92,7 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
             {
                 ball.BounceY();
                 brick.OnHit();
+
                 break;
             }
         }

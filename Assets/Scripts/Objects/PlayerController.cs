@@ -26,6 +26,8 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
         ballPool = new GenericPool<GameObject>(parameters => Instantiate(ballPrefab));
 
         SpawnBall();
+
+        OnLivesChanged?.Invoke(lives);
     }
 
     public void SpawnBall()
