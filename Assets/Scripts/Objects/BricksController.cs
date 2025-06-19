@@ -24,7 +24,7 @@ public class BricksController : UpdatableComponent
         {
             float rnd = UnityEngine.Random.value;
 
-            if (rnd <= 0.5f)
+            if (rnd < 0.65f)
             {
                 b.meshRenderer.SetMaterials(variant);
 
@@ -37,10 +37,15 @@ public class BricksController : UpdatableComponent
                     switchValue = 0f;
                     b.SetHits(2);
                 }
-                else if (rnd <= 0.5f)
+                else if (rnd < 0.5f)
                 {
                     switchValue = 1f;
                     b.SetHits(4);
+                }
+                else if(rnd < 0.65f)
+                {
+                    switchValue = 2f;
+                    b.SetHits(20);
                 }
 
                 mpb.SetFloat(VariantSwitchID, switchValue);
