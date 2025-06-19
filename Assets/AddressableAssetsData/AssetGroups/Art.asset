@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Art
+  m_EditorClassIdentifier: 
+  m_GroupName: Art
+  m_GUID: 90ffc812b1c94c04dbf053465de1ffb2
+  m_SerializeEntries:
+  - m_GUID: 0c93b0ed9b975814ca94437a26959d1b
+    m_Address: Assets/Art/Textures/822.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b019dd9ccf46f941a5d968cd8538b8c
+    m_Address: Assets/Art/Models/ladrillo.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 445046ab277cdf0438b9be1c2464b0d8
+    m_Address: Assets/Art/Materials/Shaders/Block Shader Graph.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 643ad9ad662039342a7e86022d7bc445
+    m_Address: Assets/Art/Models/pared.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91b7f51af115b824b981ec7ac8797e18
+    m_Address: Assets/Art/Textures/Asset 1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5bf2abd79239d34ba1bdf3e970d3103
+    m_Address: Assets/Art/Models/pelota.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: daba8e227d29731409bdcc26259419c2
+    m_Address: Assets/Art/Textures/pexels-alfomedeiros-18926729.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e588e5f5e1e22d2479295ba6e1605a15
+    m_Address: Assets/Art/Textures/fon-zoloto-blestki-golden-zolotoi-gold-texture-background-lu.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e92a01a214c996946bc0d8012721c6a0
+    m_Address: Assets/Art/Materials/UniqueMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe7d2cd10821e7e44ac3b3b970456a37
+    m_Address: Assets/Art/Models/Cubo.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: e68f450720be029409c9792cded1062c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: cb250a9d43ce4154eb46bda95ede1296, type: 2}
+    - {fileID: 11400000, guid: 6b3aebfc100cbb949874d5747ad840ec, type: 2}

@@ -60,16 +60,27 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
         float rightLimit = rightWall.position.x - wallThickness * 0.5f;
         float topLimit = topWall.position.y - wallThickness * 0.5f;
 
+        bool bounced = false;
+
         if (pos.x - r < leftLimit || pos.x + r > rightLimit)
+        {
             ball.BounceX();
+            bounced = true;
+        }
 
         if (pos.y + r > topLimit)
+        {
             ball.BounceY();
+            bounced = true;
+        }
 
         if (pos.y - r < minY)
         {
             ball.OnMissed();
         }
+
+        if (bounced)
+            SFXManager.Instance.PlayBouce();
     }
 
     private void CheckPlayerCollision(Ball ball)
@@ -81,6 +92,8 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
             ball.SetDirection(newDir);
 
             OnPlayerBounce?.Invoke();
+
+            SFXManager.Instance.PlayBouce();
         }
     }
 
@@ -92,6 +105,8 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
             {
                 ball.BounceY();
                 brick.OnHit();
+
+                SFXManager.Instance.PlayBouce();
 
                 break;
             }
