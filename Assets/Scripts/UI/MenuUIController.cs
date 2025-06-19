@@ -1,15 +1,21 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuUIController : MonoBehaviour
 {
-    [SerializeField] private int gameSceneIndex;
     [SerializeField] private AudioMixer audioMixer;
 
     public void Play()
     {
-        SceneManager.LoadSceneAsync(gameSceneIndex, LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
+    }
+    public void PlayLevel(int level)
+    {
+        
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
     }
 
     public void SetAudioVolume(float value)
