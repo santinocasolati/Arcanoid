@@ -6,8 +6,15 @@ public class PowerupBrick : Brick
 
     public override void OnHit()
     {
-        Instantiate(powerupPrefab, transform.position, Quaternion.identity);
+        hitsToDestroy--;
 
-        base.OnHit();
+        if (hitsToDestroy == 0)
+        {
+            PhysicsManager.Instance.UnregisterBrick(this);
+
+            OnBrickDestroy?.Invoke();
+            Instantiate(powerupPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }

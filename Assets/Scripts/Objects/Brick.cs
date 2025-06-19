@@ -6,7 +6,7 @@ public class Brick : UpdatableComponent
     [SerializeField] private Vector2 size = new Vector2(1f, 0.5f);
     [SerializeField] public MeshRenderer meshRenderer;
 
-    private int hitsToDestroy = 1;
+    protected int hitsToDestroy = 1;
     public Action OnBrickDestroy;
 
     public override void OnCustomStart()
