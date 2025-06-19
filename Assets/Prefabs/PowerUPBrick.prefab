@@ -85,4 +85,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 2, y: 1}
   meshRenderer: {fileID: 2349800825528130061}
-  powerupPrefab: {fileID: 3684167677031022445, guid: 46175425deb8f8a479c6e9646c1964e7, type: 3}
+  powerUpBlockPrefab: {fileID: 3684167677031022445, guid: 46175425deb8f8a479c6e9646c1964e7, type: 3}

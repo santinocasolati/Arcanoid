@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class BasePowerup : UpdatableComponent, IPowerUp, ICustomPhysicsUpdatable
+public class BasePowerUp : UpdatableComponent, IPowerUp, ICustomPhysicsUpdatable
 {
     [SerializeField] private Vector2 size = new Vector2(1f, 1f);
     [SerializeField] private float fallSpeed;
-
+    
+    public BasePowerUPSO powerUp;
     private Vector2 position;
 
     public override void OnCustomStart()
@@ -23,6 +24,7 @@ public class BasePowerup : UpdatableComponent, IPowerUp, ICustomPhysicsUpdatable
 
     public virtual void OnGrab(PlayerController player)
     {
+        powerUp.OnGrab(player);
         PhysicsManager.Instance.UnregisterPowerup(this);
         Destroy(gameObject);
     }

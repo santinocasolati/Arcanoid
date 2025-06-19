@@ -52,6 +52,14 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
         attachedBall = null;
     }
 
+    public void LaunchAttachedBallStraight()
+    {
+        if (attachedBall == null) return;
+
+        attachedBall.Launch(this.transform.forward);
+        attachedBall = null;
+    }
+
     public override void OnCustomUpdate(float deltaTime)
     {
         float moveDirection = inputs.Player.Move.ReadValue<float>();

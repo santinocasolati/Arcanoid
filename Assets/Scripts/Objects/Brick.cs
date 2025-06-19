@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Brick : UpdatableComponent
@@ -12,7 +13,21 @@ public class Brick : UpdatableComponent
     public override void OnCustomStart()
     {
         base.OnCustomStart();
-        PhysicsManager.Instance.RegisterBrick(this);
+        StartCoroutine(SusribeToPhysics());
+    }
+
+    private IEnumerator SusribeToPhysics()
+    {
+        yield return null;
+        yield return null;
+        if (PhysicsManager.Instance == null)
+        {
+            Debug.LogError($"[{name}] PhysicsManager.Instance is NULL! Did you initialize it?");
+        }
+        else
+        {
+            PhysicsManager.Instance.RegisterBrick(this);
+        }
     }
 
     public Rect GetBounds()
@@ -30,13 +45,16 @@ public class Brick : UpdatableComponent
     {
         hitsToDestroy--;
         if (hitsToDestroy == 0)
-        {
-            PhysicsManager.Instance.UnregisterBrick(this);
+            DestroyBrick();
+    }
 
-            OnBrickDestroy?.Invoke();
+    public void DestroyBrick()
+    {
+        PhysicsManager.Instance.UnregisterBrick(this);
 
-            Destroy(gameObject);
-        }
+        OnBrickDestroy?.Invoke();
+
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()

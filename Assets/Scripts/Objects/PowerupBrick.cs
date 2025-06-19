@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerupBrick : Brick
 {
-    [SerializeField] private GameObject powerupPrefab;
+    [SerializeField] public GameObject powerUpBlockPrefab;
 
     public override void OnHit()
     {
@@ -13,7 +13,7 @@ public class PowerupBrick : Brick
             PhysicsManager.Instance.UnregisterBrick(this);
 
             OnBrickDestroy?.Invoke();
-            Instantiate(powerupPrefab, transform.position, Quaternion.identity);
+            Instantiate(powerUpBlockPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
