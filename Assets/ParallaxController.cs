@@ -6,44 +6,31 @@ public class ParallaxController : UpdatableComponent
 {
     [SerializeField] private List<SpriteRenderer> layers = new List<SpriteRenderer>();
     [SerializeField] private List<float> layerSpeeds = new List<float>();
-    [SerializeField] private GameObject border;
-    private List<Vector3> startingPos = new List<Vector3>();
+    [SerializeField] private Transform player;
+
+    private Vector3 previousPlayerPosition;
 
     public override void OnCustomStart()
     {
-        int count = Mathf.Min(layers.Count, layerSpeeds.Count);
-
-        for (int i = 0; i < count; i++)
-            startingPos.Add(layers[i].transform.position);
+        previousPlayerPosition = player.position;
     }
 
     public override void OnCustomUpdate(float deltaTime)
     {
-        for (int i = 0; i < startingPos.Count; i++)
+        Vector3 deltaMovement = player.position - previousPlayerPosition;
+
+        for (int i = 0; i < layers.Count; i++)
         {
-            var layer = layers[i];
-
-            if (IsCloseToBorder(layer, i))
-                layer.transform.position = startingPos[i];
-            else
-                SlowlyMoveToBorder(layer, i, deltaTime);
+            if (layers[i] != null)
+            {
+                Transform layerTransform = layers[i].transform;
+                Vector3 newPosition = layerTransform.position;
+                newPosition.x += deltaMovement.x * layerSpeeds[i];
+                newPosition.y += deltaMovement.y * layerSpeeds[i];
+                layerTransform.position = newPosition;
+            }
         }
-    }
 
-    private bool IsCloseToBorder(SpriteRenderer spriteRenderer, int index)
-    {
-        float rightEdgeX = spriteRenderer.transform.position.x
-                           + spriteRenderer.bounds.extents.x;
-
-        float borderX = border.transform.position.x;
-
-        return rightEdgeX <= borderX;
-    }
-
-    private void SlowlyMoveToBorder(SpriteRenderer layer, int layerNumber, float deltaTime)
-    {
-        Vector3 newPos = layer.transform.position;
-        newPos.x -= layerSpeeds[layerNumber] * deltaTime;
-        layer.transform.position = newPos;
+        previousPlayerPosition = player.position;
     }
 }

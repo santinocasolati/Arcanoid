@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
 
 public class MenuUIController : MonoBehaviour
 {
@@ -14,8 +15,7 @@ public class MenuUIController : MonoBehaviour
     }
     public void PlayLevel(int level)
     {
-        
-        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        Addressables.LoadSceneAsync($"Assets/Scenes/Levels/L{level}.unity", LoadSceneMode.Single);
     }
 
     public void SetAudioVolume(float value)
