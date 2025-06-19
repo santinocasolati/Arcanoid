@@ -4,7 +4,9 @@ using UnityEngine;
 public class Brick : UpdatableComponent
 {
     [SerializeField] private Vector2 size = new Vector2(1f, 0.5f);
+    [SerializeField] public MeshRenderer meshRenderer;
 
+    private int hitsToDestroy = 1;
     public Action OnBrickDestroy;
 
     public override void OnCustomStart()
@@ -19,13 +21,22 @@ public class Brick : UpdatableComponent
         return new Rect(pos - size * 0.5f, size);
     }
 
+    public void SetHits(int hits)
+    {
+        hitsToDestroy = hits;
+    }
+
     public virtual void OnHit()
     {
-        PhysicsManager.Instance.UnregisterBrick(this);
+        hitsToDestroy--;
+        if (hitsToDestroy == 0)
+        {
+            PhysicsManager.Instance.UnregisterBrick(this);
 
-        OnBrickDestroy?.Invoke();
+            OnBrickDestroy?.Invoke();
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmosSelected()

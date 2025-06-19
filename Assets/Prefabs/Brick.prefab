@@ -132,3 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 2, y: 1}
+  meshRenderer: {fileID: 7004926848922715735}
