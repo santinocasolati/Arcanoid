@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : UpdatableComponent, IPhysicsObject
@@ -5,11 +6,14 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private float moveSpeed, minX, maxX;
     public Vector2 size = new Vector2(2f, 0.5f);
+    [SerializeField] private int lives = 3;
 
     private Ball attachedBall;
     private GenericPool<GameObject> ballPool;
 
     private InputSystem_Actions inputs;
+
+    public Action<int> OnLivesChanged;
 
     public override void OnCustomStart()
     {
@@ -43,7 +47,7 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
     {
         if (attachedBall == null) return;
 
-        Vector2 launchDirection = new Vector2(Random.Range(-0.5f, 0.5f), 1f).normalized;
+        Vector2 launchDirection = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), 1f).normalized;
         attachedBall.Launch(launchDirection);
         attachedBall = null;
     }
@@ -60,12 +64,21 @@ public class PlayerController : UpdatableComponent, IPhysicsObject
             pos.x = Mathf.Clamp(pos.x, minX, maxX);
 
             transform.position = pos;
-
-            if (attachedBall != null)
-            {
-                attachedBall.transform.position = transform.position + new Vector3(0, size.y * 1.5f, 0);
-            }
         }
+
+        if (attachedBall != null)
+        {
+            attachedBall.transform.position = transform.position + new Vector3(0, size.y * 1.5f, 0);
+        }
+    }
+
+    public bool RemoveLive()
+    {
+        lives -= 1;
+
+        OnLivesChanged?.Invoke(lives);
+
+        return lives <= 0;
     }
 
     public Rect GetBounds()

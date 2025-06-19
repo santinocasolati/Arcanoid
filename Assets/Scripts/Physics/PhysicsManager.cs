@@ -110,7 +110,14 @@ public class PhysicsManager : UpdatableComponent, ICustomPhysicsUpdatable
     {
         if (balls.Count > 0) return;
 
-        UIManager.Instance.Lose();
+        if (player.RemoveLive())
+        {
+            UIManager.Instance.Lose();
+        }
+        else
+        {
+            player.SpawnBall();
+        }
     }
 
     private void OnDrawGizmosSelected()
