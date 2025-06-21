@@ -19,7 +19,6 @@ public class Brick : UpdatableComponent
     private IEnumerator SusribeToPhysics()
     {
         yield return null;
-        yield return null;
         if (PhysicsManager.Instance == null)
         {
             Debug.LogError($"[{name}] PhysicsManager.Instance is NULL! Did you initialize it?");

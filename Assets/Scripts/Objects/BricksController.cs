@@ -11,27 +11,16 @@ public class BricksController : UpdatableComponent
     [SerializeField] private List<Brick> bricks = new List<Brick>();
     [SerializeField] private List<Material> variant;
     [SerializeField] private int powerUpBricks;
-    private int spawnedPowerUps;
     [SerializeField] private List<BasePowerUPSO> powerUps;
 
     private List<Brick> currentBricks = new List<Brick>();
 
     public Action OnBrickCountModified;
 
-    public int BricksCount {  get { return currentBricks.Count; } }
+    public int BricksCount => currentBricks.Count;
 
     public override void OnCustomStart()
     {
-        if (powerUpPrefab == null)
-            Debug.LogError("BricksController.powerUpPrefab is null!");
-
-        if (powerUps == null || powerUps.Count == 0)
-            Debug.LogError("BricksController.powerUps is empty—no power‑ups to assign!");
-
-        if (variant == null || variant.Count == 0)
-            Debug.LogError("BricksController.variant materials list is empty!");
-
-        base.OnCustomStart();
         var shuffled = bricks.OrderBy(_ => UnityEngine.Random.value).ToList();
         var powerUpSet = new HashSet<Brick>(shuffled.Take(Mathf.Min(powerUpBricks, bricks.Count)));
 
@@ -40,18 +29,16 @@ public class BricksController : UpdatableComponent
         for (int i = 0; i < bricks.Count; i++)
         {
             var original = bricks[i];
+            Brick b;
 
-            Brick b = powerUpSet.Contains(original)
-                ? EvaluatePowerUp(original)
-                : original;
-
-            if (!powerUpSet.Contains(original))
-                currentBricks.Add(b);
+            if (powerUpSet.Contains(original))
+                b = EvaluatePowerUp(original);
             else
-                EvaluateChangeOfMaterial(b);
+                b = original;
+
+            EvaluateChangeOfMaterial(b);
 
             Brick captured = b;
-
             if (captured != null)
             {
                 captured.OnBrickDestroy += () =>
@@ -66,46 +53,19 @@ public class BricksController : UpdatableComponent
             bricks[i] = b;
         }
 
+        base.OnCustomStart();
     }
 
     private Brick EvaluatePowerUp(Brick b)
     {
-        if (powerUpPrefab == null) return b;
+        if (powerUpPrefab == null)
+            return b;
 
-        var go = Instantiate(powerUpPrefab);
-        go.transform.position = b.transform.position;
+        Destroy(b.gameObject);
 
+        var go = Instantiate(powerUpPrefab, b.transform.position, Quaternion.identity);
         var pb = go.GetComponent<PowerupBrick>();
-        if (pb == null)
-        {
-            Debug.LogError($"powerUpPrefab is missing PowerupBrick on its root!");
-            return b;
-        }
-
-        if (pb.powerUpBlockPrefab == null)
-        {
-            Debug.LogError($"PowerupBrick.powerUpBlockPrefab is not assigned in the Inspector!");
-            return b;
-        }
-
-        var basePU = pb.powerUpBlockPrefab.GetComponent<BasePowerUp>();
-        if (basePU == null)
-        {
-            Debug.LogError($"powerUpBlockPrefab is missing a BasePowerUp component!");
-            return b;
-        }
-
-        if (powerUps.Count == 0)
-        {
-            Debug.LogError("No entries in the powerUps list to choose from!");
-        }
-        else
-        {
-            basePU.powerUp = powerUps[UnityEngine.Random.Range(0, powerUps.Count)];
-        }
-
-        b.DestroyBrick();
-        spawnedPowerUps++;
+        pb.powerUp = powerUps[UnityEngine.Random.Range(0, powerUps.Count)];
 
         return go.GetComponent<Brick>();
     }
@@ -121,7 +81,7 @@ public class BricksController : UpdatableComponent
             var mpb = new MaterialPropertyBlock();
             b.meshRenderer.GetPropertyBlock(mpb);
 
-            float switchValue = 0;
+            float switchValue = 0f;
             if (rnd < 0.25f)
             {
                 switchValue = 0f;
@@ -132,14 +92,13 @@ public class BricksController : UpdatableComponent
                 switchValue = 1f;
                 b.SetHits(4);
             }
-            else if (rnd < 0.65f)
+            else
             {
                 switchValue = 2f;
                 b.SetHits(20);
             }
 
             mpb.SetFloat(VariantSwitchID, switchValue);
-
             b.meshRenderer.SetPropertyBlock(mpb);
         }
     }

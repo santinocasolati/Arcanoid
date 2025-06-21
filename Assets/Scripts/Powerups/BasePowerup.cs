@@ -5,7 +5,7 @@ public class BasePowerUp : UpdatableComponent, IPowerUp, ICustomPhysicsUpdatable
     [SerializeField] private Vector2 size = new Vector2(1f, 1f);
     [SerializeField] private float fallSpeed;
     
-    public BasePowerUPSO powerUp;
+    [HideInInspector] public BasePowerUPSO powerUp;
     private Vector2 position;
 
     public override void OnCustomStart()
